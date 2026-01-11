@@ -1,0 +1,41 @@
+version: '3'
+
+vars:
+  BINARY: terraform-provider-fastly-user-mgt
+  VERSION: 0.1.0
+  OS_ARCH:
+    sh: echo "$(go env GOOS)_$(go env GOARCH)"
+  PLUGIN_DIR: "{{.HOME}}/.terraform.d/plugins/local/fastly/fastly-user-mgt/{{.VERSION}}/{{.OS_ARCH}}"
+
+tasks:
+  default:
+    cmds:
+      - task --list
+
+  build:
+    desc: Build the provider
+    cmds:
+      - go mod tidy
+      - go build -o {{.BINARY}}
+
+  test:
+    desc: Run tests
+    cmds:
+      - go test -v ./...
+
+  install:
+    desc: Install provider locally
+    deps: [build]
+    cmds:
+      - mkdir -p {{.PLUGIN_DIR}}
+      - cp {{.BINARY}} {{.PLUGIN_DIR}}/
+
+  uninstall:
+    desc: Remove local provider
+    cmds:
+      - rm -rf ~/.terraform.d/plugins/local/fastly/fastly-user-mgt
+
+  clean:
+    desc: Clean build artifacts
+    cmds:
+      - rm -f {{.BINARY}}
