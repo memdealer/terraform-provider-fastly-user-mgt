@@ -1,3 +1,7 @@
+- Yes, I udnerstand that I could have submitted PR to original fastly provider.
+- No i don't think they would have approved this approach
+- I kinda wait till they fix it themselves, as they destroyed part that worked but did not think about how to fix it later.
+
 # Terraform Provider for Fastly User Management
 
 A focused Terraform provider for managing Fastly users and invitations. This provider uses the [Fastly Invitations API](https://www.fastly.com/documentation/reference/api/account/invitations/) to handle user creation since the direct user creation endpoint was deprecated in April 2025.
